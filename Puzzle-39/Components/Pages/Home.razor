@@ -1,0 +1,48 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Sign Up!</h1>
+
+<p>This is a .NET 8 Blazor Web App with no interactivity; server-side rendered.</p>
+<p>When you fill out and submit the form, Blazor tells you that the values are required.</p>
+<p>How can we fix this?</p>
+
+<EditForm FormName="MyForm" Model="@newUser" OnValidSubmit="CreateUser">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label for="username">User Name:</label>
+        <InputText id="username" class="form-control" @bind-Value="@newUser.UserName" />
+        <br />
+
+        <label for="name">Name:</label>
+        <InputText id="name" class="form-control" @bind-Value="@newUser.Name" />
+        <br />
+
+        <label for="email">Email:</label>
+        <InputText id="email" class="form-control" @bind-Value="@newUser.Email" />
+        <br />
+
+        <button type="submit">Save</button>
+        <ValidationSummary />
+        <div>@Message</div>
+    </div>
+
+</EditForm>
+
+@code {
+    private NewUserModel newUser;
+
+    string Message { get; set; } = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        newUser = new NewUserModel();
+    }
+
+    private void CreateUser()
+    {
+        Message = $"New User {newUser.Name} Created";
+    }
+}
